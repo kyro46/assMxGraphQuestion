@@ -1,0 +1,1 @@
+mxBasePath = './Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph';
