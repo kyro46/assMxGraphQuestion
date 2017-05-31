@@ -118,9 +118,28 @@
 					editor.graph.container.focus();
 				}
 			};
+
+			var writeXmlToBox_funct = function(editor)
+			{
+					var enc = new mxCodec();
+					var node = enc.encode(editor.graph.getModel());
+					var xml = mxUtils.getXml(node);
+					
+					if (xml != '<mxGraphModel><root><Diagram label="New Diagram" id="0"><mxCell/></Diagram><Layer label="Default Layer" id="1"><mxCell parent="0"/></Layer></root></mxGraphModel>')
+					{
+						//saveNode.value = mxUtils.getPrettyXml(node);
+						saveNode.value = xml;
+						saveNode.originalValue = saveNode.value;
+					} else 
+					{
+						saveNode.value = "";
+						saveNode.originalValue = saveNode.value;
+					}
+			};			
 			
 			editor.addAction('switchView', funct);
-			
+			editor.addAction('writeXmlToBox', writeXmlToBox_funct);
+
 			// Defines a new action to switch between
 			// XML and graphical display
 			mxEvent.addListener(sourceInput, 'click', function()
@@ -128,10 +147,16 @@
 				editor.execute('switchView');
 			});
 			
-			mxEvent.addListener(sourceInput, 'mouseup', function()
+			mxEvent.addListener(graphNode, 'mouseover', function()
+			{
+				editor.execute('writeXmlToBox');
+			});
+			
+			mxEvent.addListener(graphNode, 'mouseout', function()
 					{
-						editor.execute('switchView');
-					});
+						editor.execute('writeXmlToBox');
+					});	
+			
 			// Create select actions in page
 			var node = document.getElementById('mainActions');
 			//var buttons = ['group', 'ungroup', 'cut', 'copy', 'paste', 'delete', 'undo', 'redo', 'print', 'show'];
