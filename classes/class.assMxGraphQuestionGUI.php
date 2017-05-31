@@ -47,7 +47,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 	/**
 	 * Get the output for edit, preview and test
 	 */
-	function getQuestionOutput($question, $temp="tpl.il_as_qpl_mxgqst_output.html"){
+	function getQuestionOutput($question, $initialXml, $graphXml, $options, $temp="tpl.il_as_qpl_mxgqst_output.html"){
 		global $tpl;
 		$plugin       = $this->object->getPlugin();
 		$template     = $plugin->getTemplate($temp);
@@ -61,6 +61,9 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$tpl->addJavaScript($plugin->getDirectory().'/templates/template_main.js');
 		
 		$template->setVariable("QUESTIONTEXT", $this->object->prepareTextareaOutput($question, TRUE));
+		$template->setVariable("INITIAL_XML",$initialXml);
+		$template->setVariable("GRAPH_XML",$graphXml);
+		$template->setVariable("OPTIONS", $options);
 		return $template;
 	}	
 	
@@ -106,7 +109,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$plugin = $this->object->getPlugin();
 		include_once("./Services/Form/classes/class.ilCustomInputGUI.php");
 		$mxgoutput = new ilCustomInputGUI($plugin->txt("sampleSolution"), "sampleSolution");
-		$template = $this->getQuestionOutput("");
+		$template = $this->getQuestionOutput("", $this->object->getInitialXml(), $this->object->getGraphXml(), "");
 		$mxgoutput->setHtml($template->get());
 		$form->addItem($mxgoutput);	
 		
@@ -142,7 +145,14 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 			$this->writeQuestionGenericPostData();
 
 			// Here you can write the question type specific values
+			
+			//error_log("PostData: ".$_POST["graphXML"]);
+			
+			
 			$this->object->setPoints((int) $_POST["points"]);
+			$this->object->setInitialXml($_POST["initialXML"]);
+			$this->object->setGraphXml($_POST["graphXML"]);
+			$this->object->setOptions($_POST["options"]);
 
 			$this->saveTaxonomyAssignments();
 			return 0;

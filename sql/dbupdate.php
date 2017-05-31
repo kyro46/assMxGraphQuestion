@@ -24,3 +24,15 @@ if ($res->numRows() == 0)
     );
 }
 ?>
+<#2>
+<?php
+	//Define data
+	$fields = array(
+			'question_fi'	=> array('type' => 'integer', 'length' => 4, 'notnull' => true ),
+			'graphxml'      => array('type' => 'clob', 'notnull' => false ),
+			'initialxml'    => array('type' => 'clob', 'notnull' => false ),
+			'options'       => array('type' => 'text', 'length' => 200, 'fixed' => false, 'notnull' => false )
+	);
+	$ilDB->createTable("il_qpl_qst_mxgraph", $fields);
+	$ilDB->addPrimaryKey("il_qpl_qst_mxgraph", array("question_fi"));	
+?>

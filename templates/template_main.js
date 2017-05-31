@@ -47,6 +47,12 @@
 				f(editor);
 			}
 			
+			var loadGraphXML = document.getElementById('graphXML').value;
+			var loadXml = mxUtils.parseXml(loadGraphXML);
+			var nodeXml = loadXml.documentElement;
+			var dec = new mxCodec(nodeXml.ownerDocument);
+			dec.decode(nodeXml, editor.graph.getModel());
+						
 		    // Changes the zoom on mouseWheel events
 			//disabled because it blocks scrolling on the page
 			/*
@@ -70,7 +76,7 @@
 			// Defines a new action to switch between
 			// XML and graphical display
 			var textNode = document.getElementById('xml');
-			var saveNode  = document.getElementById('answerString');
+			var saveNode  = document.getElementById('graphXML');
 			var graphNode = editor.graph.container;
 			var sourceInput = document.getElementById('source');
 			sourceInput.checked = false;

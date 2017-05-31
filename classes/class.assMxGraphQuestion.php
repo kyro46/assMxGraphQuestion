@@ -17,6 +17,12 @@ class assMxGraphQuestion extends assQuestion
 	 */
 	var $plugin = null;
 
+	//What to show when the examinee starts
+	var $initialXml = '';
+	//Sample solution
+	var $graphXml = '';
+	//Later use
+	var $options = '';
 
 	/**
 	 * Constructor
@@ -74,6 +80,27 @@ class assMxGraphQuestion extends assQuestion
 		}
 	}
 
+	
+	function setOptions($options){
+		$this->options = $options;
+	}
+	function setInitialXml($initialXml){
+		$this->initialXml = $initialXml;
+	}
+	function setGraphXml($graphXml){
+		$this->graphXml = $graphXml;
+	}
+
+	function getOptions(){
+		return $this->options;
+	}
+	function getInitialXml(){
+		return $this->initialXml;
+	}
+	function getGraphXml(){
+		return $this->graphXml;
+	}
+	
 	/**
 	 * Saves a question object to a database
 	 * 
@@ -83,14 +110,29 @@ class assMxGraphQuestion extends assQuestion
 	 */
 	function saveToDb($original_id = "")
 	{
-
+		global $ilDB, $ilLog;
 		// save the basic data (implemented in parent)
 		// a new question is created if the id is -1
 		// afterwards the new id is set
 		$this->saveQuestionDataToDb($original_id);
 
 		// Now you can save additional data
-		// ...
+		$affectedRows = $ilDB->manipulateF("DELETE FROM il_qpl_qst_mxgraph WHERE question_fi = %s",
+				array("integer"),
+				array($this->getId())
+				);
+
+		//error_log($this->graphXml);
+		
+		$affectedRows = $ilDB->manipulateF("INSERT INTO il_qpl_qst_mxgraph (question_fi, graphxml, initialxml, options) VALUES (%s, %s, %s, %s)",
+				array("integer", "text", "text", "text"),
+				array(
+						$this->getId(),
+						$this->graphXml,
+						$this->initialXml,
+						$this->options
+				)
+				);
 
 		// save stuff like suggested solutions
 		// update the question time stamp and completion status
@@ -128,7 +170,15 @@ class assMxGraphQuestion extends assQuestion
 		$this->setEstimatedWorkingTime(substr($data["working_time"], 0, 2), substr($data["working_time"], 3, 2), substr($data["working_time"], 6, 2));
 
 		// now you can load additional data
-		// ...
+		$resultCheck= $ilDB->queryF("SELECT graphxml, initialxml, options FROM il_qpl_qst_mxgraph WHERE question_fi = %s", array('integer'), array($question_id));
+		if($ilDB->numRows($resultCheck) == 1)
+		{
+			$data = $ilDB->fetchAssoc($resultCheck);
+			error_log("load from db");
+			$this->setGraphXml($data["graphxml"]);
+			$this->setInitialXml($data["initialxml"]);
+			$this->setOptions($data["options"]);
+		}
 
 		try
 		{
