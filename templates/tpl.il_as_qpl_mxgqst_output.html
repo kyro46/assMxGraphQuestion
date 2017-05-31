@@ -1,89 +1,41 @@
 {QUESTIONTEXT}
-<div id="graphContainer" style="position:relative;overflow:hidden;width:321px;height:241px;cursor:default;">
-</div>
-<textarea id="answerString" name="sampleSolution"/>{GRAPH_XML}</textarea>
-
+	
+<textarea id="answerString" name="sampleSolution"/>{GRAPH_XML}</textarea>	
+		<div id="page">
+		<div id="mainActions"
+			style="width:100%;padding-top:8px;padding-left:24px;padding-bottom:8px;">
+		</div>
+		<div id="selectActions" style="width:100%;padding-left:54px;padding-bottom:4px;">
+		</div>
+		<table border="0" width="730px">
+			<tr>
+				<td id="toolbar" style="width:16px;padding-left:20px;" valign="top">
+					<!-- Toolbar Here -->				
+				</td>
+				<td valign="top" style="border-width:1px;border-style:solid;border-color:black;">
+					<div id="graph" tabindex="-1" style="position:relative;height:480px;width:684px;overflow:hidden;cursor:default;">
+						<!-- Graph Here -->
+						<center id="splash" style="padding-top:230px;">
+							<img src="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/loading.gif">
+						</center>
+					</div>
+					<textarea id="xml" style="height:480px;width:684px;display:none;border-style:none;"></textarea>
+				</td>
+			</tr>
+		</table>
+		<span style="float:right;padding-right:36px;">
+			<input id="source" type="checkbox"/>Source
+		</span>
+		<div id="zoomActions" style="width:100%;padding-left:54px;padding-top:4px;">
+		</div>
+		<div id="footer">
+			<p id="status">
+				<!-- Status Here -- Loading... -->
+			</p>
+			<br/>
+		</div>
+	</div>
+	
 <script type="text/javascript">
-	var container = document.getElementById('graphContainer');
-	main(container);
-	// Program starts here. Creates a sample graph in the
-	// DOM node with the specified ID. This function is invoked
-	// from the onLoad event handler of the document (see below).
-	function main(container)
-	{
-		// Checks if the browser is supported
-		if (!mxClient.isBrowserSupported())
-		{
-			// Displays an error message if the browser is not supported.
-			mxUtils.error('Browser is not supported!', 200, false);
-		}
-		else
-		{
-			// Disables the built-in context menu
-			mxEvent.disableContextMenu(container);
-			
-			// Creates the graph inside the given container
-			var graph = new mxGraph(container);
-
-			// Enables rubberband selection
-			new mxRubberband(graph);
-			
-			// Gets the default parent for inserting new cells. This
-			// is normally the first child of the root (ie. layer 0).
-			var parent = graph.getDefaultParent();
-							
-			// Adds cells to the model in a single step
-			graph.getModel().beginUpdate();
-			try
-			{
-				var v1 = graph.insertVertex(parent, null, 'Hello,', 20, 20, 80, 30);
-				v1.data = new CustomData('v1');
-				var v2 = graph.insertVertex(parent, null, 'World!', 200, 150, 80, 30);
-				v2.data = new CustomData('v2');
-				var e1 = graph.insertEdge(parent, null, '', v1, v2);
-			}
-			finally
-			{
-				// Updates the display
-				graph.getModel().endUpdate();
-			}
-		}
-		
-		// Adds an option to view the XML of the graph
-		document.body.appendChild(mxUtils.button('View XML', function()
-		{
-			var encoder = new mxCodec();
-			var node = encoder.encode(graph.getModel());
-			
-			var textNode = document.getElementById('answerString');
-			textNode.value = mxUtils.getPrettyXml(node);
-		}));
-		
-	};
-	
-	function CustomData(value)
-	{
-		this.value = value;
-	}
-	
-	var codec = new mxObjectCodec(new CustomData());
-
-	codec.encode = function(enc, obj)
-	{
-		var node = enc.document.createElement('CustomData');
-		mxUtils.setTextContent(node, JSON.stringify(obj));
-	   
-		return node;
-	};
-	
-	codec.decode = function(dec, node, into)
-	{
-		var obj = JSON.parse(mxUtils.getTextContent(node));
-		obj.constructor = CustomData;
-		
-		return obj;
-	};
-
-	mxCodecRegistry.register(codec);
-	
+createEditor('./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/config/diagrameditor.xml');
 </script>

@@ -52,9 +52,14 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$plugin       = $this->object->getPlugin();
 		$template     = $plugin->getTemplate($temp);
 
-		$tpl->addJavaScript($plugin->getDirectory().'/templates/mxgraph/js/loadMxBase.js');
+		//$tpl->addCss($plugin->getDirectory().'/templates/mxgraph/css/common.css');
+		//$tpl->addCss($plugin->getDirectory().'/templates/mxgraph/css/wordpress.css');
+
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/loadMxBase.js');
 		$tpl->addJavaScript($plugin->getDirectory().'/templates/mxgraph/js/mxClient.js');
-	
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/app_er_editor.js');
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/template_main.js');
+		
 		$template->setVariable("QUESTIONTEXT", $this->object->prepareTextareaOutput($question, TRUE));
 		return $template;
 	}	
