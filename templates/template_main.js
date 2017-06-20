@@ -77,10 +77,13 @@
 			// XML and graphical display
 			var textNode = document.getElementById('xml');
 			var saveNode  = document.getElementById('graphXML');
+			var initialNode = document.getElementById('initialXML');
 			var graphNode = editor.graph.container;
 			var sourceInput = document.getElementById('source');
 			sourceInput.checked = false;
-
+			var toggleInput = document.getElementById('toggleInput');
+			toggleInput.checked = false;
+			
 			var funct = function(editor)
 			{
 				if (sourceInput.checked)
@@ -124,13 +127,38 @@
 					editor.graph.container.focus();
 				}
 			};
-
+			
+			var toggleInputFunct = function(editor)
+			{
+				//Initial mode checked
+				if (toggleInput.checked)
+				{
+					var loadInitialXML = document.getElementById('initialXML').value;
+					if (loadInitialXML == '\n') { //TODO this might change with different input types
+						loadInitialXML = '<mxGraphModel><root><Diagram label="New Diagram" id="0"><mxCell/></Diagram><Layer label="Default Layer" id="1"><mxCell parent="0"/></Layer></root></mxGraphModel>';
+					}
+					var loadXml = mxUtils.parseXml(loadInitialXML);
+					var nodeXml = loadXml.documentElement;
+					var dec = new mxCodec(nodeXml.ownerDocument);
+					dec.decode(nodeXml, editor.graph.getModel());
+				}
+				else
+				{
+					var loadGraphXML = document.getElementById('graphXML').value;
+					var loadXml = mxUtils.parseXml(loadGraphXML);
+					var nodeXml = loadXml.documentElement;
+					var dec = new mxCodec(nodeXml.ownerDocument);
+					dec.decode(nodeXml, editor.graph.getModel());
+					
+				}
+			};
 			var writeXmlToBox_funct = function(editor)
 			{
 					var enc = new mxCodec();
 					var node = enc.encode(editor.graph.getModel());
 					var xml = mxUtils.getXml(node);
-					
+				if (!toggleInput.checked){
+
 					if (xml != '<mxGraphModel><root><Diagram label="New Diagram" id="0"><mxCell/></Diagram><Layer label="Default Layer" id="1"><mxCell parent="0"/></Layer></root></mxGraphModel>')
 					{
 						//saveNode.value = mxUtils.getPrettyXml(node);
@@ -141,9 +169,24 @@
 						saveNode.value = "";
 						saveNode.originalValue = saveNode.value;
 					}
+				} else {
+
+					if (xml != '<mxGraphModel><root><Diagram label="New Diagram" id="0"><mxCell/></Diagram><Layer label="Default Layer" id="1"><mxCell parent="0"/></Layer></root></mxGraphModel>')
+					{
+						//saveNode.value = mxUtils.getPrettyXml(node);
+						initialNode.value = xml;
+						initialNode.originalValue = initialNode.value;
+					} else 
+					{
+						initialNode.value = "";
+						initialNode.originalValue = initialNode.value;
+					}	
+				}
+
 			};			
-			
+
 			editor.addAction('switchView', funct);
+			editor.addAction('toggleInput', toggleInputFunct);
 			editor.addAction('writeXmlToBox', writeXmlToBox_funct);
 
 			// Defines a new action to switch between
@@ -153,16 +196,21 @@
 				editor.execute('switchView');
 			});
 			
+			mxEvent.addListener(toggleInput, 'click', function()
+			{
+				editor.execute('toggleInput');
+			});
+			
 			mxEvent.addListener(graphNode, 'mouseover', function()
 			{
 				editor.execute('writeXmlToBox');
 			});
 			
 			mxEvent.addListener(graphNode, 'mouseout', function()
-					{
-						editor.execute('writeXmlToBox');
-					});	
-			
+			{
+				editor.execute('writeXmlToBox');
+			});
+		
 			// Create select actions in page
 			var node = document.getElementById('mainActions');
 			//var buttons = ['group', 'ungroup', 'cut', 'copy', 'paste', 'delete', 'undo', 'redo', 'print', 'show'];
