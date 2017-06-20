@@ -108,12 +108,11 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		// MxGraph-Applet
 		$plugin = $this->object->getPlugin();
 		include_once("./Services/Form/classes/class.ilCustomInputGUI.php");
-		$mxgoutput = new ilCustomInputGUI($plugin->txt("sampleSolution"), "sampleSolution");
+		$mxgoutput = new ilCustomInputGUI($plugin->txt("editor"), "editor");
 		$template = $this->getQuestionOutput("", $this->object->getInitialXml(), $this->object->getGraphXml(), "", "tpl.il_as_qpl_mxgqst_editor.html");
 		$mxgoutput->setHtml($template->get());
 		$form->addItem($mxgoutput);	
-		
-		
+
 		$errors = false;
 
 		if ($save)
