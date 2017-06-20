@@ -98,8 +98,15 @@
 					textNode.originalValue = textNode.value;
 					textNode.focus();
 					
-					saveNode.value = mxUtils.getPrettyXml(node);
-					saveNode.originalValue = saveNode.value;
+					
+					if (!toggleInput.checked)
+					{
+						saveNode.value = mxUtils.getPrettyXml(node);
+						saveNode.originalValue = saveNode.value;
+					} else {
+						initialNode.value = mxUtils.getPrettyXml(node);
+						initialNode.originalValue = initialNode.value;
+					}
 					
 				}
 				else
@@ -134,7 +141,7 @@
 				if (toggleInput.checked)
 				{
 					var loadInitialXML = document.getElementById('initialXML').value;
-					if (loadInitialXML == '\n') { //TODO this might change with different input types
+					if (loadInitialXML == '\n' || loadInitialXML == '') { //TODO this might change with different input types
 						loadInitialXML = '<mxGraphModel><root><Diagram label="New Diagram" id="0"><mxCell/></Diagram><Layer label="Default Layer" id="1"><mxCell parent="0"/></Layer></root></mxGraphModel>';
 					}
 					var loadXml = mxUtils.parseXml(loadInitialXML);
@@ -145,6 +152,9 @@
 				else
 				{
 					var loadGraphXML = document.getElementById('graphXML').value;
+					if (loadGraphXML == '\n' || loadGraphXML == '') { //TODO this might change with different input types
+						loadGraphXML = '<mxGraphModel><root><Diagram label="New Diagram" id="0"><mxCell/></Diagram><Layer label="Default Layer" id="1"><mxCell parent="0"/></Layer></root></mxGraphModel>';
+					}
 					var loadXml = mxUtils.parseXml(loadGraphXML);
 					var nodeXml = loadXml.documentElement;
 					var dec = new mxCodec(nodeXml.ownerDocument);
