@@ -45,7 +45,7 @@
 		<separator/>
 		<add as="properties" action="showProperties" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/properties.gif"/>
 		<separator/>
-		<add as="openHref" action="openHref" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/link.gif"/>
+		<!-- <add as="openHref" action="openHref" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/link.gif"/> -->
 	</mxDefaultPopupMenu>
 	<include name="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/config/keyhandler-commons.xml"/>
 	<Array as="actions">
@@ -55,7 +55,7 @@
 				editor.open(mxUtils.prompt('Enter filename', 'workflow.xml'));
 			}
 		]]></add>
-		<add as="openHref"><![CDATA[
+		<!-- <add as="openHref"><![CDATA[
 			function (editor, cell)
 			{
 				cell = cell || editor.graph.getSelectionCell();
@@ -85,7 +85,7 @@
 					}
 				}
 			}
-		]]></add>
+		]]></add>  -->
 		<add as="editStyle"><![CDATA[
 			function (editor)
 			{
