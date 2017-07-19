@@ -317,9 +317,8 @@ class assMxGraphQuestion extends assQuestion
 	protected function getSolutionSubmit()
 	{
 		return array(
-			'value1' => ilUtil::stripSlashes($_POST["question".$this->getId()."value1"]),
-			'value2' => ilUtil::stripSlashes($_POST["question".$this->getId()."value2"]),
-			'points' =>  (float) $_POST["question".$this->getId()."points"]
+			//'value1' => ilUtil::stripSlashes($_POST["question".$this->getId()."graphXML"]),
+			'value1' => $_POST["graphXML"],
 		);
 	}
 
@@ -401,7 +400,7 @@ class assMxGraphQuestion extends assQuestion
 		$solution = $this->getSolutionSubmit();
 
 		// lock to prevent race conditions
-		$this->getProcessLocker()->requestUserSolutionUpdateLock();
+		//$this->getProcessLocker()->requestUserSolutionUpdateLock();
 
 		// save the answers of the learner to tst_solution table
 		// this data is question type specific
@@ -425,9 +424,7 @@ class assMxGraphQuestion extends assQuestion
 					// points, value1 and value2 are multi-purpose fields
 					// store here what you want from the POST data
 					// in our example we allow to enter these values directly
-					"points" 	  => array("float", $solution["points"]),
 					"value1"      => array("clob", $solution["value1"]),
-					"value2"      => array("clob", $solution["value2"]),
 				),
 				array (
 					"solution_id" => array("integer", $row['solution_id']),
@@ -455,7 +452,7 @@ class assMxGraphQuestion extends assQuestion
 		}
 
 		// unlock
-		$this->getProcessLocker()->releaseUserSolutionUpdateLock();
+		//$this->getProcessLocker()->releaseUserSolutionUpdateLock();
 
 		// Check if the user has entered something
 		// Then set entered_values accordingly

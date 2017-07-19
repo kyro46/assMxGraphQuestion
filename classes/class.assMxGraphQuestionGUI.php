@@ -45,25 +45,22 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 	}
 
 	/**
-	 * Get the output for edit, preview and test
+	 * Get the output for preview and test
 	 */
-	function getQuestionOutput($question, $initialXml, $graphXml, $options, $temp="tpl.il_as_qpl_mxgqst_output.html"){
+	function getQuestionOutput($question, $initialXml, $graphXml, $options, $temp="tpl.il_as_qpl_mxgqst_testoutput.html"){
 		global $tpl;
 		$plugin       = $this->object->getPlugin();
 		$template     = $plugin->getTemplate($temp);
 
-		//$tpl->addCss($plugin->getDirectory().'/templates/mxgraph/css/common.css');
-		//$tpl->addCss($plugin->getDirectory().'/templates/mxgraph/css/wordpress.css');
-
 		$tpl->addJavaScript($plugin->getDirectory().'/templates/loadMxBase.js');
 		$tpl->addJavaScript($plugin->getDirectory().'/templates/mxgraph/js/mxClient.js');
 		$tpl->addJavaScript($plugin->getDirectory().'/templates/app_er_editor.js');
-		$tpl->addJavaScript($plugin->getDirectory().'/templates/template_main.js');
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/template_main_testoutput.js');
 		
 		$template->setVariable("QUESTIONTEXT", $this->object->prepareTextareaOutput($question, TRUE));
-		$template->setVariable("INITIAL_XML",$initialXml);
-		$template->setVariable("GRAPH_XML",$graphXml);
-		$template->setVariable("OPTIONS", $options);
+		$template->setVariable("INITIAL_XML",ilUtil::prepareFormOutput($initialXml));
+		$template->setVariable("GRAPH_XML",ilUtil::prepareFormOutput($graphXml));
+		$template->setVariable("OPTIONS", ilUtil::prepareFormOutput($options));
 		return $template;
 	}	
 	
@@ -76,7 +73,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 	 */
 	public function editQuestion($checkonly = FALSE)
 	{
-		global $lng;
+		global $lng, $tpl;
 
 		$save = $this->isSaveCommand();
 		$this->getQuestionTemplate();
@@ -109,7 +106,20 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$plugin = $this->object->getPlugin();
 		include_once("./Services/Form/classes/class.ilCustomInputGUI.php");
 		$mxgoutput = new ilCustomInputGUI($plugin->txt("editor"), "editor");
-		$template = $this->getQuestionOutput("", $this->object->getInitialXml(), $this->object->getGraphXml(), "", "tpl.il_as_qpl_mxgqst_editor.html");
+		
+		$plugin       = $this->object->getPlugin();
+		$template     = $plugin->getTemplate("tpl.il_as_qpl_mxgqst_editor.html");
+		
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/loadMxBase.js');
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/mxgraph/js/mxClient.js');
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/app_er_editor.js');
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/template_main.js');
+		
+		$template->setVariable("QUESTIONTEXT", $this->object->prepareTextareaOutput($question, TRUE));
+		$template->setVariable("INITIAL_XML",ilUtil::prepareFormOutput($this->object->getInitialXml()));
+		$template->setVariable("GRAPH_XML",ilUtil::prepareFormOutput($this->object->getGraphXml()));
+		//$template->setVariable("OPTIONS", $options);
+		
 		$mxgoutput->setHtml($template->get());
 		$form->addItem($mxgoutput);	
 
@@ -204,6 +214,8 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$template->setVariable("VALUE2", ilUtil::prepareFormOutput($value2));
 		$template->setVariable("POINTS", ilUtil::prepareFormOutput($points));
 
+		$template = $this->getQuestionOutput("", $this->object->getInitialXml(), $value1, "", "tpl.il_as_qpl_mxgqst_testoutput.html");
+		
 		$questionoutput = $template->get();
 		$pageoutput = $this->outQuestionPage("", $is_postponed, $active_id, $questionoutput);
 		return $pageoutput;
@@ -237,6 +249,9 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$template->setVariable("VALUE2", ilUtil::prepareFormOutput($solution['value2']));
 		$template->setVariable("POINTS", ilUtil::prepareFormOutput($solution['points']));
 
+		$template = $this->getQuestionOutput("", $this->object->getInitialXml(), "", "", "tpl.il_as_qpl_mxgqst_testoutput.html");
+		
+		
 		$questionoutput = $template->get();
 		if(!$show_question_only)
 		{
