@@ -439,7 +439,9 @@ mxPrintPreview.prototype.open = function(css, targetWindow, forcePageBreaks, kee
 			this.wnd = window.open();
 		}
 		
-		var doc = this.wnd.document;
+		var doc = this.wnd.document.getElementById("mxGraphSVG");
+		doc.innerHTML = "";
+		//this.wnd.document.getElementById("htmloutput").value="Hey you!!";
 		
 		if (isNewWindow)
 		{
@@ -509,7 +511,7 @@ mxPrintPreview.prototype.open = function(css, targetWindow, forcePageBreaks, kee
 			if (this.pageSelector && (vpages > 1 || hpages > 1))
 			{
 				var table = this.createPageSelector(vpages, hpages);
-				doc.body.appendChild(table);
+				doc.appendChild(table);
 				
 				// Implements position: fixed in IE quirks mode
 				if (mxClient.IS_IE && doc.documentMode == null || doc.documentMode == 5 || doc.documentMode == 8 || doc.documentMode == 7)
@@ -518,7 +520,7 @@ mxPrintPreview.prototype.open = function(css, targetWindow, forcePageBreaks, kee
 					
 					var update = function()
 					{
-						table.style.top = ((doc.body.scrollTop || doc.documentElement.scrollTop) + 10) + 'px';
+						table.style.top = ((doc.scrollTop || doc.documentElement.scrollTop) + 10) + 'px';
 					};
 					
 					mxEvent.addListener(this.wnd, 'scroll', function(evt)
@@ -573,7 +575,7 @@ mxPrintPreview.prototype.open = function(css, targetWindow, forcePageBreaks, kee
 			else
 			{
 				div.parentNode.removeChild(div);
-				doc.body.appendChild(div);
+				doc.appendChild(div);
 			}
 
 			if (forcePageBreaks || addBreak)
@@ -670,7 +672,7 @@ mxPrintPreview.prototype.addPageBreak = function(doc)
 {
 	var hr = doc.createElement('hr');
 	hr.className = 'mxPageBreak';
-	doc.body.appendChild(hr);
+	doc.appendChild(hr);
 };
 
 /**
@@ -690,7 +692,7 @@ mxPrintPreview.prototype.closeDocument = function()
 		doc.close();
 		
 		// Removes all event handlers in the print output
-		mxEvent.release(doc.body);
+		mxEvent.release(doc);
 	}
 };
 

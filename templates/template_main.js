@@ -174,6 +174,18 @@
 						//saveNode.value = mxUtils.getPrettyXml(node);
 						saveNode.value = xml;
 						saveNode.originalValue = saveNode.value;
+						
+						var scale = editor.graph.view.scale;
+						var bounds = editor.graph.getGraphBounds();
+						var w = Math.ceil(bounds.width * scale + 2);
+						var h = Math.ceil(bounds.height * scale + 2);
+						
+						var pageFormat = new mxRectangle(0, 0, w, h)
+						
+						//alert(window.document.getElementById("mxGraphSVG").innerHTML);
+						
+					    var preview = new mxPrintPreview(editor.graph, scale, pageFormat);
+						preview.open('mxGraphSVG', window);			    
 					} else 
 					{
 						saveNode.value = "";
@@ -226,14 +238,13 @@
 			//var buttons = ['group', 'ungroup', 'cut', 'copy', 'paste', 'delete', 'undo', 'redo', 'print', 'show'];
 			//less buttons
 			var buttons = ['group', 'ungroup', 'cut', 'copy', 'paste', 'delete', 'undo', 'redo'];
-
 			
 			// Only adds image and SVG export if backend is available
 			// NOTE: The old image export in mxEditor is not used, the urlImage is used for the new export.
 			if (editor.urlImage != null)
 			{
 				// Client-side code for image export
-				var exportImage = function(editor)
+				var exportToSvg = function(editor)
 				{
 					var graph = editor.graph;
 					var scale = graph.view.scale;
@@ -267,72 +278,17 @@
 						new mxXmlRequest(editor.urlImage, 'filename=' + name + '&format=' + format +
 		        			bg + '&w=' + w + '&h=' + h + '&xml=' + encodeURIComponent(xml)).
 		        			simulate(document, '_blank');
+						
 					}
 				};
-				
-				editor.addAction('exportImage', exportImage);
-				
-				// Client-side code for SVG export
-				var exportSvg = function(editor)
-				{
-					var graph = editor.graph;
-					var scale = graph.view.scale;
-					var bounds = graph.getGraphBounds();
-
-				    // Prepares SVG document that holds the output
-				    var svgDoc = mxUtils.createXmlDocument();
-				    var root = (svgDoc.createElementNS != null) ?
-				    	svgDoc.createElementNS(mxConstants.NS_SVG, 'svg') : svgDoc.createElement('svg');
-				    
-					if (root.style != null)
-					{
-						root.style.backgroundColor = '#FFFFFF';
-					}
-					else
-					{
-						root.setAttribute('style', 'background-color:#FFFFFF');
-					}
-				    
-				    if (svgDoc.createElementNS == null)
-				    {
-				    	root.setAttribute('xmlns', mxConstants.NS_SVG);
-				    }
-				    
-				    root.setAttribute('width', Math.ceil(bounds.width * scale + 2) + 'px');
-				    root.setAttribute('height', Math.ceil(bounds.height * scale + 2) + 'px');
-				    root.setAttribute('xmlns:xlink', mxConstants.NS_XLINK);
-				    root.setAttribute('version', '1.1');
-				    
-				    // Adds group for anti-aliasing via transform
-				    var group = (svgDoc.createElementNS != null) ?
-					    	svgDoc.createElementNS(mxConstants.NS_SVG, 'g') : svgDoc.createElement('g');
-					group.setAttribute('transform', 'translate(0.5,0.5)');
-					root.appendChild(group);
-				    svgDoc.appendChild(root);
-
-				    // Renders graph. Offset will be multiplied with state's scale when painting state.
-				    var svgCanvas = new mxSvgCanvas2D(group);
-				    svgCanvas.translate(Math.floor(1 / scale - bounds.x), Math.floor(1 / scale - bounds.y));
-				    svgCanvas.scale(scale);
-				    
-				    var imgExport = new mxImageExport();
-				    imgExport.drawState(graph.getView().getState(graph.model.root), svgCanvas);
-
-					var name = 'export.svg';
-				    var xml = encodeURIComponent(mxUtils.getXml(root));
-					
-					new mxXmlRequest(editor.urlEcho, 'filename=' + name + '&format=svg' + '&xml=' + xml).simulate(document, "_blank");
-				};
-				
-				editor.addAction('exportSvg', exportSvg);
-				
-				buttons.push('exportImage');
-				buttons.push('exportSvg');
+				editor.addAction('exportToSvg', exportToSvg);
 			};
 			
 			for (var i = 0; i < buttons.length; i++)
 			{
 				var button = document.createElement('button');
+				button.setAttribute("class", "btn btn-default");
+				button.setAttribute("type", "button");
 				mxUtils.write(button, mxResources.get(buttons[i]));
 			
 				var factory = function(name)
