@@ -273,7 +273,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 	 * @param boolean $show_manual_scoring   Show specific information for the manual scoring output
 	 * @return The solution output of the question as HTML code
 	 */
-	function getSolutionOutput(
+	function getSolutionOutput(		
 		$active_id,
 		$pass = NULL,
 		$graphicalOutput = FALSE,
@@ -285,6 +285,8 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$show_question_text = TRUE
 	)
 	{
+		global $tpl;	
+		
 		// get the solution of the user for the active pass or from the last pass if allowed
 		$solutions = array();
 		if (($active_id > 0) && (!$show_correct_solution))
@@ -296,7 +298,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		{
 			// show the correct solution
 			$solutions = array(array(
-				"value1" => $this->plugin->txt("any_text"),
+				"value1" => $this->object->getGraphXml(),
 				"value2" => $this->plugin->txt("any_text"),
 				"points" => $this->object->getMaximumPoints()
 			));
@@ -308,13 +310,23 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		foreach ($solutions as $solution)
 		{
 			$value1 = isset($solution["value1"]) ? $solution["value1"] : "";
-			$value2 = isset($solution["value2"]) ? $solution["value2"] : "";
-			$points = isset($solution["points"]) ? $solution["points"] : "";
 		}
 
 		// get the solution template
 		$template = $this->plugin->getTemplate("tpl.il_as_qpl_mxgqst_output_solution.html");
 
+		$plugin       = $this->object->getPlugin();
+		
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/loadMxBase.js');
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/mxgraph/js/mxClient.js');
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/app_er_editor.js');
+		$tpl->addJavaScript($plugin->getDirectory().'/templates/template_main_testoutput.js');
+		
+		$template->setVariable("QUESTIONTEXT", $this->object->prepareTextareaOutput($question, TRUE));
+		$template->setVariable("INITIAL_XML",ilUtil::prepareFormOutput($this->object->getInitialXml()));
+		$template->setVariable("GRAPH_XML",ilUtil::prepareFormOutput(value1));
+		
+		
 		if (($active_id > 0) && (!$show_correct_solution))
 		{
 			if ($graphicalOutput)
@@ -328,37 +340,11 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 				{
 					$reached_points = $this->object->calculateReachedPoints($active_id, $pass);
 				}
-
-				// output of ok/not ok icons for user entered solutions
-				// in this example we have ony one relevant input field (points)
-				// so we just need to tet the icon beneath this field
-				// question types with partial answers may have a more complex output
-				if ($this->object->getReachedPoints($active_id, $pass) == $this->object->getMaximumPoints())
-				{
-					$template->setCurrentBlock("icon_ok");
-					$template->setVariable("ICON_OK", ilUtil::getImagePath("icon_ok.svg"));
-					$template->setVariable("TEXT_OK", $this->lng->txt("answer_is_right"));
-					$template->parseCurrentBlock();
-				}
-				else
-				{
-					$template->setCurrentBlock("icon_ok");
-					$template->setVariable("ICON_NOT_OK", ilUtil::getImagePath("icon_not_ok.svg"));
-					$template->setVariable("TEXT_NOT_OK", $this->lng->txt("answer_is_wrong"));
-					$template->parseCurrentBlock();
-				}
 			}
 		}
 
-		// fill the template variables
-		// adapt this to your structure of answers
-		$template->setVariable("LABEL_VALUE1", $this->plugin->txt('label_value1'));
-		$template->setVariable("LABEL_VALUE2", $this->plugin->txt('label_value2'));
-		$template->setVariable("LABEL_POINTS", $this->plugin->txt('label_points'));
-
-		$template->setVariable("VALUE1", empty($value1) ? "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : ilUtil::prepareFormOutput($value1));
-		$template->setVariable("VALUE2", empty($value2) ? "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : ilUtil::prepareFormOutput($value2));
-		$template->setVariable("POINTS", empty($points) ? "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : ilUtil::prepareFormOutput($points));
+		$template->setVariable("GRAPH_XML", empty($value1) ? "" : ilUtil::prepareFormOutput($value1));
+		
 
 		$questiontext = $this->object->getQuestion();
 		if ($show_question_text==true)
