@@ -64,7 +64,7 @@
 			var saveNode  = document.getElementById('graphXML');
 			var initialNode = document.getElementById('initialXML');
 			var graphNode = editor.graph.container;
-			var resetInput = document.getElementById('resetInput');
+			var graphHtmlNode = document.getElementById('graphHtml');
 			
 			var funct = function(editor)
 			{
@@ -102,9 +102,20 @@
 						//saveNode.value = mxUtils.getPrettyXml(node);
 						saveNode.value = xml;
 						saveNode.originalValue = saveNode.value;
+						
+						var scale = editor.graph.view.scale;
+						var bounds = editor.graph.getGraphBounds();
+						var w = Math.ceil(bounds.width * scale + 2);
+						var h = Math.ceil(bounds.height * scale + 2);
+						
+						var pageFormat = new mxRectangle(0, 0, w, h)
+												
+					    var preview = new mxPrintPreview(editor.graph, 1, pageFormat);
+						preview.open('mxGraphSVG', window, false, false, "graphHtml");	
 					} else 
 					{
 						saveNode.value = "";
+						graphHtmlNode.value = "";
 						saveNode.originalValue = saveNode.value;
 					}
 			};			

@@ -83,8 +83,8 @@
 			sourceInput.checked = false;
 			var toggleInput = document.getElementById('toggleInput');
 			toggleInput.checked = false;
-			var graphHtmlNode = document.getElementById('htmlsvg_solutionXML');
-			var initialHtmlNode = document.getElementById('htmlsvg_initialXML');
+			var graphHtmlNode = document.getElementById('graphHtml');
+			var initialHtmlNode = document.getElementById('initialHtml');
 			
 			var funct = function(editor)
 			{
@@ -184,8 +184,8 @@
 						
 						var pageFormat = new mxRectangle(0, 0, w, h)
 												
-					    var preview = new mxPrintPreview(editor.graph, 1);
-						preview.open('mxGraphSVG', window, false, false, "htmlsvg_solutionXML");			    
+					    var preview = new mxPrintPreview(editor.graph, 1, pageFormat);
+						preview.open('mxGraphSVG', window, false, false, "graphHtml");
 					} else 
 					{
 						saveNode.value = "";
@@ -207,8 +207,8 @@
 						
 						var pageFormat = new mxRectangle(0, 0, w, h)
 												
-					    var preview = new mxPrintPreview(editor.graph, 1);
-						preview.open('mxGraphSVG', window, false, false, "htmlsvg_initialXML");
+					    var preview = new mxPrintPreview(editor.graph, 1, pageFormat);
+						preview.open('mxGraphSVG', window, false, false, "initialHtml");
 						
 					} else 
 					{

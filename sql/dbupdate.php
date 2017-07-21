@@ -36,3 +36,25 @@ if ($res->numRows() == 0)
 	$ilDB->createTable("il_qpl_qst_mxgraph", $fields);
 	$ilDB->addPrimaryKey("il_qpl_qst_mxgraph", array("question_fi"));	
 ?>
+<#3>
+<?php
+	//Add HTML-Representation of the graph to table for presentation in PDF and for manual correction
+    if(!$ilDB->tableColumnExists('il_qpl_qst_mxgraph', 'graphhtml'))
+    {
+        $ilDB->addTableColumn('il_qpl_qst_mxgraph', 'graphhtml', array(
+                'type' => 'clob',
+                'notnull' => false,
+            )
+        );
+    }
+    //Add HTML-Representation of the initial Graph to table for cases of an empty testee input
+    if(!$ilDB->tableColumnExists('il_qpl_qst_mxgraph', 'initialhtml'))
+    {
+    	$ilDB->addTableColumn('il_qpl_qst_mxgraph', 'initialhtml', array(
+    			'type' => 'clob',
+    			'notnull' => false,
+    		)
+    	);
+    }
+    
+?>

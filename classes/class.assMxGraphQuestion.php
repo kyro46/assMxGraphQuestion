@@ -23,6 +23,10 @@ class assMxGraphQuestion extends assQuestion
 	var $graphXml = '';
 	//Later use
 	var $options = '';
+	//HTML representation of solution graph
+	var $graphHtml = '';
+	//HTML representation of initial graph
+	var $initialHtml = '';
 
 	/**
 	 * Constructor
@@ -90,7 +94,13 @@ class assMxGraphQuestion extends assQuestion
 	function setGraphXml($graphXml){
 		$this->graphXml = $graphXml;
 	}
-
+	function setGraphHtml($graphHtml){
+		$this->graphHtml= $graphHtml;
+	}
+	function setInitialHtml($initialHtml){
+		$this->initialHtml= $initialHtml;
+	}
+	
 	function getOptions(){
 		return $this->options;
 	}
@@ -99,6 +109,12 @@ class assMxGraphQuestion extends assQuestion
 	}
 	function getGraphXml(){
 		return $this->graphXml;
+	}
+	function getGraphHtml(){
+		return $this->graphHtml;
+	}
+	function getInitialHtml(){
+		return $this->initialHtml;
 	}
 	
 	/**
@@ -124,13 +140,15 @@ class assMxGraphQuestion extends assQuestion
 
 		//error_log($this->graphXml);
 		
-		$affectedRows = $ilDB->manipulateF("INSERT INTO il_qpl_qst_mxgraph (question_fi, graphxml, initialxml, options) VALUES (%s, %s, %s, %s)",
-				array("integer", "text", "text", "text"),
+		$affectedRows = $ilDB->manipulateF("INSERT INTO il_qpl_qst_mxgraph (question_fi, graphxml, initialxml, options, graphhtml, initialhtml) VALUES (%s, %s, %s, %s, %s, %s)",
+				array("integer", "text", "text", "text", "text", "text"),
 				array(
 						$this->getId(),
 						$this->graphXml,
 						$this->initialXml,
-						$this->options
+						$this->options,
+						$this->graphHtml,
+						$this->initialHtml
 				)
 				);
 
@@ -174,10 +192,11 @@ class assMxGraphQuestion extends assQuestion
 		if($ilDB->numRows($resultCheck) == 1)
 		{
 			$data = $ilDB->fetchAssoc($resultCheck);
-			error_log("load from db");
 			$this->setGraphXml($data["graphxml"]);
 			$this->setInitialXml($data["initialxml"]);
 			$this->setOptions($data["options"]);
+			$this->setGraphHtml($data["graphhtml"]);
+			$this->setInitialHtml($data["initialhtml"]);
 		}
 
 		try
@@ -319,6 +338,7 @@ class assMxGraphQuestion extends assQuestion
 		return array(
 			//'value1' => ilUtil::stripSlashes($_POST["question".$this->getId()."graphXML"]),
 			'value1' => $_POST["graphXML"],
+			'value2' => $_POST["graphHtml"]
 		);
 	}
 
@@ -425,6 +445,7 @@ class assMxGraphQuestion extends assQuestion
 					// store here what you want from the POST data
 					// in our example we allow to enter these values directly
 					"value1"      => array("clob", $solution["value1"]),
+					"value2"	  => array("clob", $solution["value2"]),
 				),
 				array (
 					"solution_id" => array("integer", $row['solution_id']),
