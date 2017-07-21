@@ -175,16 +175,14 @@
 						saveNode.value = xml;
 						saveNode.originalValue = saveNode.value;
 						
-						var scale = editor.graph.view.scale;
+						//var scale = editor.graph.view.scale;
 						var bounds = editor.graph.getGraphBounds();
 						var w = Math.ceil(bounds.width * scale + 2);
 						var h = Math.ceil(bounds.height * scale + 2);
 						
 						var pageFormat = new mxRectangle(0, 0, w, h)
-						
-						//alert(window.document.getElementById("mxGraphSVG").innerHTML);
-						
-					    var preview = new mxPrintPreview(editor.graph, scale, pageFormat);
+												
+					    var preview = new mxPrintPreview(editor.graph, 1);
 						preview.open('mxGraphSVG', window);			    
 					} else 
 					{
