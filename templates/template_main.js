@@ -83,6 +83,8 @@
 			sourceInput.checked = false;
 			var toggleInput = document.getElementById('toggleInput');
 			toggleInput.checked = false;
+			var graphHtmlNode = document.getElementById('htmlsvg_solutionXML');
+			var initialHtmlNode = document.getElementById('htmlsvg_initialXML');
 			
 			var funct = function(editor)
 			{
@@ -175,7 +177,7 @@
 						saveNode.value = xml;
 						saveNode.originalValue = saveNode.value;
 						
-						//var scale = editor.graph.view.scale;
+						var scale = editor.graph.view.scale;
 						var bounds = editor.graph.getGraphBounds();
 						var w = Math.ceil(bounds.width * scale + 2);
 						var h = Math.ceil(bounds.height * scale + 2);
@@ -183,10 +185,11 @@
 						var pageFormat = new mxRectangle(0, 0, w, h)
 												
 					    var preview = new mxPrintPreview(editor.graph, 1);
-						preview.open('mxGraphSVG', window);			    
+						preview.open('mxGraphSVG', window, false, false, "htmlsvg_solutionXML");			    
 					} else 
 					{
 						saveNode.value = "";
+						graphHtmlNode.value = "";
 						saveNode.originalValue = saveNode.value;
 					}
 				} else {
@@ -196,9 +199,21 @@
 						//saveNode.value = mxUtils.getPrettyXml(node);
 						initialNode.value = xml;
 						initialNode.originalValue = initialNode.value;
+						
+						var scale = editor.graph.view.scale;
+						var bounds = editor.graph.getGraphBounds();
+						var w = Math.ceil(bounds.width * scale + 2);
+						var h = Math.ceil(bounds.height * scale + 2);
+						
+						var pageFormat = new mxRectangle(0, 0, w, h)
+												
+					    var preview = new mxPrintPreview(editor.graph, 1);
+						preview.open('mxGraphSVG', window, false, false, "htmlsvg_initialXML");
+						
 					} else 
 					{
 						initialNode.value = "";
+						initialHtmlNode.value = "";
 						initialNode.originalValue = initialNode.value;
 					}	
 				}

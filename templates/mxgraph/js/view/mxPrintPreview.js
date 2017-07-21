@@ -402,7 +402,7 @@ mxPrintPreview.prototype.appendGraph = function(graph, scale, x0, y0, forcePageB
  * targetWindow - Optional window that should be used for rendering. If
  * this is specified then no HEAD tag, CSS and BODY tag will be written.
  */
-mxPrintPreview.prototype.open = function(css, targetWindow, forcePageBreaks, keepOpen)
+mxPrintPreview.prototype.open = function(css, targetWindow, forcePageBreaks, keepOpen, targetInputField)
 {
 	// Closing the window while the page is being rendered may cause an
 	// exception in IE. This and any other exceptions are simply ignored.
@@ -439,9 +439,8 @@ mxPrintPreview.prototype.open = function(css, targetWindow, forcePageBreaks, kee
 			this.wnd = window.open();
 		}
 		
-		var doc = this.wnd.document.getElementById("mxGraphSVG");
-		doc.innerHTML = "";
-		//this.wnd.document.getElementById("htmloutput").value="Hey you!!";
+		var doc = this.wnd.document.getElementById(targetInputField);
+		doc.value = "";
 		
 		if (isNewWindow)
 		{
@@ -511,7 +510,7 @@ mxPrintPreview.prototype.open = function(css, targetWindow, forcePageBreaks, kee
 			if (this.pageSelector && (vpages > 1 || hpages > 1))
 			{
 				var table = this.createPageSelector(vpages, hpages);
-				doc.appendChild(table);
+				doc.value = table;
 				
 				// Implements position: fixed in IE quirks mode
 				if (mxClient.IS_IE && doc.documentMode == null || doc.documentMode == 5 || doc.documentMode == 8 || doc.documentMode == 7)
@@ -575,7 +574,7 @@ mxPrintPreview.prototype.open = function(css, targetWindow, forcePageBreaks, kee
 			else
 			{
 				div.parentNode.removeChild(div);
-				doc.appendChild(div);
+				doc.value = div.innerHTML;
 			}
 
 			if (forcePageBreaks || addBreak)
