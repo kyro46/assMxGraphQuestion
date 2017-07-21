@@ -303,7 +303,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		{
 			// show the correct solution
 			$solutions = array(array(
-				"value1" => $this->object->getGraphXml(),
+				//"value1" => $this->object->getGraphXml(),
 				"value2" => $this->object->getGraphHtml(),
 				"points" => $this->object->getMaximumPoints()
 			));
@@ -315,7 +315,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		foreach ($solutions as $solution)
 		{
 			$value1 = isset($solution["value1"]) ? $solution["value1"] : "";
-			$value2 = isset($solution["value2"]) ? $solution["value2"] : "";
+			$value2 = isset($solution["value2"]) ? $solution["value2"] : $this->object->getInitialHtml();
 			
 		}
 
@@ -338,9 +338,8 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 			}
 		}
 
-		$template->setVariable("GRAPH_XML", empty($value1) ? $this->object->getInitialHtml(): $value2);
+		$template->setVariable("GRAPH_HTML", $value2);
 		
-
 		$questiontext = $this->object->getQuestion();
 		if ($show_question_text==true)
 		{

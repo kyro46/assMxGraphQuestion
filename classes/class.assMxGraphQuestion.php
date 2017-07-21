@@ -188,7 +188,7 @@ class assMxGraphQuestion extends assQuestion
 		$this->setEstimatedWorkingTime(substr($data["working_time"], 0, 2), substr($data["working_time"], 3, 2), substr($data["working_time"], 6, 2));
 
 		// now you can load additional data
-		$resultCheck= $ilDB->queryF("SELECT graphxml, initialxml, options FROM il_qpl_qst_mxgraph WHERE question_fi = %s", array('integer'), array($question_id));
+		$resultCheck= $ilDB->queryF("SELECT graphxml, initialxml, options, graphhtml, initialhtml FROM il_qpl_qst_mxgraph WHERE question_fi = %s", array('integer'), array($question_id));
 		if($ilDB->numRows($resultCheck) == 1)
 		{
 			$data = $ilDB->fetchAssoc($resultCheck);
