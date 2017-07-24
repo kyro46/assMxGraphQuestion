@@ -14,7 +14,7 @@
 			<td valign="top"
 				style="border-width: 1px; border-style: solid; border-color: black;">
 				<div id="graph" tabindex="-1"
-					style="position: relative; height: 480px; width: 684px; overflow: hidden; cursor: default;">
+					style="position: relative; height: 500px; width: 700px; overflow: hidden; cursor: default;">
 					<!-- Graph Here -->
 					<center id="splash" style="padding-top: 230px;">
 						<img
@@ -25,15 +25,16 @@
 			</td>
 		</tr>
 	</table>
-	<span style="float: right; padding-right: 36px;">
-		<input id="source" type="checkbox" /> Zeige XML
-		<br/>
+	<span style="display:none; float: center; padding-right: 36px;">
+		<input  id="source" type="checkbox" /> Zeige XML
+	</span>
+	<span style="float: center; padding-right: 36px;">
 		<input id="toggleInput" type="checkbox" /> Vorbelegung bearbeiten
 	</span>
 	<span style="float: right; padding-right: 36px;"> 
 	</span>
 	<div id="zoomActions"
-		style="width: 100%; padding-left: 54px; padding-top: 4px;"></div>
+		style="display:none; width: 100%; padding-left: 54px; padding-top: 4px;"></div>
 	<div id="footer">
 		<p id="status">
 			<!-- Status Here -- Loading... -->
@@ -46,7 +47,7 @@
 <input type="hidden" id="options" name="options" value="{OPTIONS}" />
 <input type="hidden" id="graphHtml" name="graphHtml" value="{GRAPH_HTML}" />
 <input type="hidden" id="initialHtml" name="initialHtml" value="{INITIAL_HTML}" />
-<div id=graphdebug></div>
+<div id=graphdebug style="height:auto; width:auto;"></div>
 
 <script type="text/javascript">
 	createEditor('./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/config/diagrameditor.xml');

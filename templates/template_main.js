@@ -164,6 +164,12 @@
 					
 				}
 			};
+			
+			//make developers life much more easier
+			editor.graph.setPanning(false);
+			editor.graph.autoScroll=false;
+			editor.graph.maximumGraphBounds = new mxRectangle(0, 0, 700, 500);
+			
 			var writeXmlToBox_funct = function(editor)
 			{
 					var enc = new mxCodec();
@@ -177,13 +183,47 @@
 						saveNode.value = xml;
 						saveNode.originalValue = saveNode.value;
 
+						/*
+						//Set Size of SVG
+						//Get desired max size
+						var scale = editor.graph.view.scale;
+						var bounds = editor.graph.getGraphBounds();
+						var w = Math.ceil(bounds.width * scale + 2);
+						var h = Math.ceil(bounds.height * scale + 2);
+						var pageFormat = new mxRectangle(0, 0, w, h)
+
+						// Computes the horizontal and vertical page count
+						var bounds = editor.graph.getGraphBounds().clone();
+						var currentScale = editor.graph.getView().getScale();
+						var sc = currentScale / 1;//this.scale;
+						var tr = editor.graph.getView().getTranslate();
+						
+						// Store the available page area
+						var availableWidth = pageFormat.width;
+						var availableHeight = pageFormat.height;
+
+						// Compute the unscaled, untranslated bounds to find
+						// the number of vertical and horizontal pages
+						bounds.width /= sc;
+						bounds.height /= sc;
+						
+						var dy = availableHeight / scale + (bounds.y - tr.y * currentScale) / currentScale;
+						var dx = availableWidth / scale + (bounds.x - tr.x * currentScale) / currentScale;
+				
+						//End set Size of SVG
+						*/
+						
 						graphHtmlNode.value = document.getElementById('graph').innerHTML;
-						var debugoutput = document.getElementById('graphdebug');
-						debugoutput.innerHTML = graphHtmlNode.value;
+						
+						//var debugoutput = document.getElementById('graphdebug');
+						//debugoutput.innerHTML = graphHtmlNode.value;
+
 					} else 
 					{
 						saveNode.value = "";
 						graphHtmlNode.value = "";
+						//var debugoutput = document.getElementById('graphdebug');
+						//debugoutput.innerHTML = "leer";
 						saveNode.originalValue = saveNode.value;
 					}
 				} else {
@@ -195,13 +235,15 @@
 						initialNode.originalValue = initialNode.value;
 						
 						initialHtmlNode.value = document.getElementById('graph').innerHTML;
-						var debugoutput = document.getElementById('graphdebug');
-						debugoutput.innerHTML = initialHtmlNode.value;
+						//var debugoutput = document.getElementById('graphdebug');
+						//debugoutput.innerHTML = initialHtmlNode.value;
 						
 					} else 
 					{
 						initialNode.value = "";
 						initialHtmlNode.value = "";
+						//var debugoutput = document.getElementById('graphdebug');
+						//debugoutput.innerHTML = "leer";
 						initialNode.originalValue = initialNode.value;
 					}	
 				}
