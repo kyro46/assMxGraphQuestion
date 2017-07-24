@@ -91,6 +91,10 @@
 					editor.graph.container.focus();
 			};
 
+			editor.graph.setPanning(false);
+			editor.graph.autoScroll=false;
+			editor.graph.maximumGraphBounds = new mxRectangle(0, 0, 700, 500);
+			
 			var writeXmlToBox_funct = function(editor)
 			{
 					var enc = new mxCodec();
@@ -103,6 +107,7 @@
 						saveNode.value = xml;
 						saveNode.originalValue = saveNode.value;
 						
+						/*
 						var scale = editor.graph.view.scale;
 						var bounds = editor.graph.getGraphBounds();
 						var w = Math.ceil(bounds.width * scale + 2);
@@ -112,9 +117,12 @@
 												
 					    var preview = new mxPrintPreview(editor.graph, 1, pageFormat);
 						preview.open('mxGraphSVG', window, false, false, "graphHtml");	
+						*/
+						graphHtmlNode.value = document.getElementById('graph').innerHTML;
 					} else 
 					{
 						saveNode.value = "";
+						graphHtmlNode.value = "";
 						graphHtmlNode.value = "";
 						saveNode.originalValue = saveNode.value;
 					}
