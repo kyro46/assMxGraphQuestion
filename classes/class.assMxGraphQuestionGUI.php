@@ -122,6 +122,8 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$template->setVariable("INITIAL_XML",ilUtil::prepareFormOutput($this->object->getInitialXml()));
 		$template->setVariable("GRAPH_XML",ilUtil::prepareFormOutput($this->object->getGraphXml()));
 		//$template->setVariable("OPTIONS", $options);
+		$template->setVariable("GRAPH_HTML",ilUtil::prepareFormOutput($this->object->getGraphHtml()));
+		$template->setVariable("INITIAL_HTML",ilUtil::prepareFormOutput($this->object->getInitialHtml()));
 		
 		$mxgoutput->setHtml($template->get());
 		$form->addItem($mxgoutput);	

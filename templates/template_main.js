@@ -176,16 +176,10 @@
 						//saveNode.value = mxUtils.getPrettyXml(node);
 						saveNode.value = xml;
 						saveNode.originalValue = saveNode.value;
-						
-						var scale = editor.graph.view.scale;
-						var bounds = editor.graph.getGraphBounds();
-						var w = Math.ceil(bounds.width * scale + 2);
-						var h = Math.ceil(bounds.height * scale + 2);
-						
-						var pageFormat = new mxRectangle(0, 0, w, h)
-												
-					    var preview = new mxPrintPreview(editor.graph, 1, pageFormat);
-						preview.open('mxGraphSVG', window, false, false, "graphHtml");
+
+						graphHtmlNode.value = document.getElementById('graph').innerHTML;
+						var debugoutput = document.getElementById('graphdebug');
+						debugoutput.innerHTML = graphHtmlNode.value;
 					} else 
 					{
 						saveNode.value = "";
@@ -200,15 +194,9 @@
 						initialNode.value = xml;
 						initialNode.originalValue = initialNode.value;
 						
-						var scale = editor.graph.view.scale;
-						var bounds = editor.graph.getGraphBounds();
-						var w = Math.ceil(bounds.width * scale + 2);
-						var h = Math.ceil(bounds.height * scale + 2);
-						
-						var pageFormat = new mxRectangle(0, 0, w, h)
-												
-					    var preview = new mxPrintPreview(editor.graph, 1, pageFormat);
-						preview.open('mxGraphSVG', window, false, false, "initialHtml");
+						initialHtmlNode.value = document.getElementById('graph').innerHTML;
+						var debugoutput = document.getElementById('graphdebug');
+						debugoutput.innerHTML = initialHtmlNode.value;
 						
 					} else 
 					{
