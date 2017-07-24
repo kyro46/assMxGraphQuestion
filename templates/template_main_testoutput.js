@@ -57,8 +57,12 @@
 			}
 			var loadXml = mxUtils.parseXml(loadGraphXML);
 			var nodeXml = loadXml.documentElement;
-			var dec = new mxCodec(nodeXml.ownerDocument);
-			dec.decode(nodeXml, editor.graph.getModel());
+			try {
+				var dec = new mxCodec(nodeXml.ownerDocument);
+				dec.decode(nodeXml, editor.graph.getModel());
+			} catch (err) {
+				//Internet Explorer
+			}
 						
 			var textNode = document.getElementById('xml');
 			var saveNode  = document.getElementById('graphXML');
