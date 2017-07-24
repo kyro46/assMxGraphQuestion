@@ -103,6 +103,15 @@ class assMxGraphQuestionImport extends assQuestionImport
 		$this->object->setObjId($questionpool_id);
 		$this->object->setEstimatedWorkingTime($duration["h"], $duration["m"], $duration["s"]);
 		$this->object->setPoints($item->getMetadataEntry("POINTS"));
+		
+		//Question specific
+		$this->object->setGraphXml(base64_decode($item->getMetadataEntry("graphxml")));
+		$this->object->setInitialXml(base64_decode($item->getMetadataEntry("initialxml")));
+		$this->object->setOptions($item->getMetadataEntry("options"));
+		$this->object->setGraphHtml(base64_decode($item->getMetadataEntry("graphhtml")));
+		$this->object->setInitialHtml(base64_decode($item->getMetadataEntry("initialhtml")));
+		
+		
 		// additional content editing mode information
 		$this->object->setAdditionalContentEditingMode(
 			$this->fetchAdditionalContentEditingModeInformation($item)

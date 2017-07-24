@@ -58,6 +58,32 @@ class assMxGraphQuestionExport extends assQuestionExport
 		$a_xml_writer->xmlElement("fieldentry", NULL, $this->object->getPoints());
 		$a_xml_writer->xmlEndTag("qtimetadatafield");
 
+		//Question specific
+		$a_xml_writer->xmlStartTag("qtimetadatafield");
+		$a_xml_writer->xmlElement("fieldlabel", NULL, "graphxml");
+		$a_xml_writer->xmlElement("fieldentry", NULL,  base64_encode($this->object->getGraphXml()));
+		$a_xml_writer->xmlEndTag("qtimetadatafield");
+
+		$a_xml_writer->xmlStartTag("qtimetadatafield");
+		$a_xml_writer->xmlElement("fieldlabel", NULL, "initialxml");
+		$a_xml_writer->xmlElement("fieldentry", NULL,  base64_encode($this->object->getInitialXml));
+		$a_xml_writer->xmlEndTag("qtimetadatafield");
+		
+		$a_xml_writer->xmlStartTag("qtimetadatafield");
+		$a_xml_writer->xmlElement("fieldlabel", NULL, "options");
+		$a_xml_writer->xmlElement("fieldentry", NULL, $this->object->getOptions());
+		$a_xml_writer->xmlEndTag("qtimetadatafield");
+		
+		$a_xml_writer->xmlStartTag("qtimetadatafield");
+		$a_xml_writer->xmlElement("fieldlabel", NULL, "graphhtml");
+		$a_xml_writer->xmlElement("fieldentry", NULL, base64_encode($this->object->getGraphHtml()));
+		$a_xml_writer->xmlEndTag("qtimetadatafield");
+		
+		$a_xml_writer->xmlStartTag("qtimetadatafield");
+		$a_xml_writer->xmlElement("fieldlabel", NULL, "initialhtml");
+		$a_xml_writer->xmlElement("fieldentry", NULL,  base64_encode($this->object->getInitialHtml()));
+		$a_xml_writer->xmlEndTag("qtimetadatafield");
+		
 		// additional content editing information
 		$this->addAdditionalContentEditingModeInformation($a_xml_writer);
 		$this->addGeneralMetadata($a_xml_writer);
