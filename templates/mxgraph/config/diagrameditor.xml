@@ -32,7 +32,7 @@
 			</Container>
 		</add>
 		<add as="rectangle">
-			<Rect label="Rectangle" href="">
+			<Rect label="Rechteck" href="">
 				<mxCell vertex="1">	
 					<mxGeometry as="geometry" width="80" height="40"/>
 				</mxCell>
@@ -60,7 +60,7 @@
 			</Roundrect>
 		</add>
 		<add as="shape">
-			<Shape label="Shape" href="">
+			<Shape label="Kreis" href="">
 				<mxCell vertex="1" style="ellipse">		
 					<mxGeometry as="geometry" width="60" height="60"/>
 				</mxCell>
@@ -123,21 +123,21 @@
 			</Image>
 		</add>
 		<add as="funktion">
-			<Image label="" href="">
+			<Image label="Funktion" href="">
 				<mxCell vertex="1" style="funktion">	
 					<mxGeometry as="geometry" width="80" height="50"/>
 				</mxCell>
 			</Image>
 		</add>
 		<add as="ereignis">
-			<Image label="" href="">
+			<Image label="Ereignis" href="">
 				<mxCell vertex="1" style="ereignis">	
 					<mxGeometry as="geometry" width="80" height="50"/>
 				</mxCell>
 			</Image>
 		</add>
 		<add as="dokument">
-			<Image label="" href="">
+			<Image label="Dokument" href="">
 				<mxCell vertex="1" style="dokument">	
 					<mxGeometry as="geometry" width="80" height="50"/>
 				</mxCell>
@@ -424,16 +424,7 @@
 		</mxGraphModel>
 	</mxGraph>
 	<mxDefaultToolbar as="toolbar">
-		<add as="connect" mode="connect" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/connect.gif"><![CDATA[
-			function (editor)
-			{
-				if (editor.defaultEdge != null)
-				{
-					editor.defaultEdge.style = null;
-				}
-			}
-		]]></add>
-		<add as="connect" mode="connect" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/straight.gif"><![CDATA[
+		<add as="connect" mode="connect" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/arrow.gif"><![CDATA[
 			function (editor)
 			{
 				if (editor.defaultEdge != null)
@@ -442,7 +433,16 @@
 				}
 			}
 		]]></add>
-		<add as="connect" mode="connect" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/arrow.gif"><![CDATA[
+		<add as="connect" mode="connect" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/straight.gif"><![CDATA[
+			function (editor)
+			{
+				if (editor.defaultEdge != null)
+				{
+					editor.defaultEdge.style = 'endArrow=none';
+				}
+			}
+		]]></add>
+<!--  	<add as="connect" mode="connect" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/arrow.gif"><![CDATA[
 			function (editor)
 			{
 				if (editor.defaultEdge != null)
@@ -451,23 +451,7 @@
 				}
 			}
 		]]></add>
-		<br/><br/>
-		<add as="Text" template="text" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/text.gif"/>
-<!--
-		<add as="Container" template="container" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/swimlane.gif"/>
-		<add as="Rectangle" template="rectangle" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/rectangle.gif"/>
-		<add as="Rounded" template="rounded" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/rounded.gif"/>
-		<add as="Circle" template="shape" style="ellipse" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/ellipse.gif"/>
-		<add as="Double Circle" template="shape" style="doubleEllipse" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/doubleellipse.gif"/>
-		<add as="Rhombus" template="shape" style="rhombus" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/rhombus.gif"/>
-		<add as="Triangle" template="actor" style="triangle" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/triangle.gif"/>
-		<add as="Hexagon" template="cloud" style="hexagon" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/hexagon.gif"/>
-		<add as="Actor" template="actor" style="actor" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/actor.gif"/>
-		<add as="Cylinder" template="shape" style="cylinder" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/cylinder.gif"/>
-		<add as="Cloud" template="cloud" style="cloud" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/cloud.gif"/>
-		<add as="Line" template="hline" style="hline" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/hline.gif"/>
-		<add as="Image" template="image" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/image.gif"/>
-  -->		
+-->		<br/><br/>	
   		<add as="Funktion" template="funktion" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/funktion_small.png"/>
   		<add as="Ereignis" template="ereignis" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/ereignis_small.png"/>
   		<add as="Organisationseinheit" template="organisationseinheit" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/organisationseinheit_small.png"/>
@@ -477,5 +461,21 @@
      	<add as="Dokument" template="dokument" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/dokument_small.png"/>
   		<add as="Informationsobjekt" template="informationsobjekt" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/informationsobjekt_small.png"/>
   		<add as="Wegweiser" template="wegweiser" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/wegweiser_small.png"/>
+		<br/><br/>
+		<add as="Text" template="text" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/text.gif"/>
+<!--	<add as="Container" template="container" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/swimlane.gif"/>
+		<add as="Rechteck" template="rectangle" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/rectangle.gif"/>
+	 	<add as="Rounded" template="rounded" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/rounded.gif"/>
+		<add as="Kreis" template="shape" style="ellipse" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/ellipse.gif"/>
+	 	<add as="Double Circle" template="shape" style="doubleEllipse" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/doubleellipse.gif"/>
+		<add as="Rhombus" template="shape" style="rhombus" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/rhombus.gif"/>
+		<add as="Triangle" template="actor" style="triangle" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/triangle.gif"/>
+		<add as="Hexagon" template="cloud" style="hexagon" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/hexagon.gif"/>
+		<add as="Actor" template="actor" style="actor" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/actor.gif"/>
+		<add as="Cylinder" template="shape" style="cylinder" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/cylinder.gif"/>
+		<add as="Cloud" template="cloud" style="cloud" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/cloud.gif"/>
+		<add as="Line" template="hline" style="hline" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/hline.gif"/>
+		<add as="Image" template="image" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/image.gif"/>
+  -->
 		</mxDefaultToolbar>
 </mxEditor>
