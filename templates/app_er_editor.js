@@ -8,14 +8,14 @@
 	/**
 	 * Constructs a new application (returns an mxEditor instance)
 	 */
-	function createEditor(config)
+	function createEditor(config, qst = '')
 	{
 		var editor = null;
-		
+				
 		var hideSplash = function()
 		{
 			// Fades-out the splash screen
-			var splash = document.getElementById('splash');
+			var splash = document.getElementById(qst + 'splash');
 			
 			if (splash != null)
 			{
@@ -41,6 +41,13 @@
 			{
 				mxObjectCodec.allowEval = true;
 				var node = mxUtils.load(config).getDocumentElement();
+				
+				//Set question id to elements, so multiple editors can coexist on a single page
+				var graphDom = '<add as="graph" element="' + qst + 'graph"/>'
+				var statusDom = '<add as="status" element="' + qst + 'status"/>'
+				var toolbarDom = '<add as="toolbar" element="' + qst + 'toolbar"/>'
+				node.getElementsByTagName('ui')[0].innerHTML = graphDom + statusDom + toolbarDom ;
+				
 				editor = new mxEditor(node);
 				mxObjectCodec.allowEval = false;
 				

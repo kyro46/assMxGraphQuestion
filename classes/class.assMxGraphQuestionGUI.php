@@ -47,7 +47,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 	/**
 	 * Get the output for preview and test
 	 */
-	function getQuestionOutput($question, $initialXml, $graphXml, $options, $graphHtml, $initialHtml, $temp="tpl.il_as_qpl_mxgqst_testoutput.html"){
+	function getQuestionOutput($question, $qid, $initialXml, $graphXml, $options, $graphHtml, $initialHtml, $temp="tpl.il_as_qpl_mxgqst_testoutput.html"){
 		global $tpl;
 		$plugin       = $this->object->getPlugin();
 		$template     = $plugin->getTemplate($temp);
@@ -57,6 +57,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$tpl->addJavaScript($plugin->getDirectory().'/templates/app_er_editor.js');
 		$tpl->addJavaScript($plugin->getDirectory().'/templates/template_main_testoutput.js');
 		
+		$template->setVariable("QUESTION_ID", $qid);
 		$template->setVariable("QUESTIONTEXT", $this->object->prepareTextareaOutput($question, TRUE));
 		$template->setVariable("INITIAL_XML",ilUtil::prepareFormOutput($initialXml));
 		$template->setVariable("GRAPH_XML",ilUtil::prepareFormOutput($graphXml));
@@ -212,7 +213,6 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		// in out example we have 1:1 relation for the database field
 		$template = $this->plugin->getTemplate("tpl.il_as_qpl_mxgqst_output.html");
 
-		$template->setVariable("QUESTION_ID", $this->object->getId());
 		$template->setVariable("LABEL_VALUE1", $this->plugin->txt('label_value1'));
 		$template->setVariable("LABEL_VALUE2", $this->plugin->txt('label_value2'));
 		$template->setVariable("LABEL_POINTS", $this->plugin->txt('label_points'));
@@ -221,7 +221,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$template->setVariable("VALUE2", ilUtil::prepareFormOutput($value2));
 		$template->setVariable("POINTS", ilUtil::prepareFormOutput($points));
 
-		$template = $this->getQuestionOutput($this->object->getQuestion(), $this->object->getInitialXml(), $value1, "", $value2, "", "tpl.il_as_qpl_mxgqst_testoutput.html");
+		$template = $this->getQuestionOutput($this->object->getQuestion(), $this->object->getId(), $this->object->getInitialXml(), $value1, "", $value2, "", "tpl.il_as_qpl_mxgqst_testoutput.html");
 		
 		$questionoutput = $template->get();
 		$pageoutput = $this->outQuestionPage("", $is_postponed, $active_id, $questionoutput);
@@ -247,7 +247,6 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 
 		// Fill the template with a preview version of the question
 		$template = $this->plugin->getTemplate("tpl.il_as_qpl_mxgqst_output.html");
-		$template->setVariable("QUESTION_ID", $this->object->getId());
 		$template->setVariable("LABEL_VALUE1", $this->plugin->txt('label_value1'));
 		$template->setVariable("LABEL_VALUE2", $this->plugin->txt('label_value2'));
 		$template->setVariable("LABEL_POINTS", $this->plugin->txt('label_points'));
@@ -256,8 +255,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$template->setVariable("VALUE2", ilUtil::prepareFormOutput($solution['value2']));
 		$template->setVariable("POINTS", ilUtil::prepareFormOutput($solution['points']));
 
-		$template = $this->getQuestionOutput($this->object->getQuestion(), $this->object->getInitialXml(), "", "", "", "", "tpl.il_as_qpl_mxgqst_testoutput.html");
-		
+		$template = $this->getQuestionOutput($this->object->getQuestion(), $this->object->getId(), $this->object->getInitialXml(), "", "", "", "", "tpl.il_as_qpl_mxgqst_testoutput.html");		
 		
 		$questionoutput = $template->get();
 		if(!$show_question_only)

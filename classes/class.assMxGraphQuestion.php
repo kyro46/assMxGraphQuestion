@@ -337,8 +337,8 @@ class assMxGraphQuestion extends assQuestion
 	{
 		return array(
 			//'value1' => ilUtil::stripSlashes($_POST["question".$this->getId()."graphXML"]),
-			'value1' => $_POST["graphXML"],
-			'value2' => $_POST["graphHtml"]
+			'value1' => $_POST[$this->getId()."_graphXML"],
+			'value2' => $_POST[$this->getId()."_graphHtml"]
 		);
 	}
 

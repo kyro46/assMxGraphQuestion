@@ -6,6 +6,9 @@
 		// last step in the editor constructor.
 		function onInit(editor)
 		{
+			//get the question id from the container  - e.g. 1234_graph - we only need the id number + _
+			var qid = editor.graph.container.id.substring(0, editor.graph.container.id.length - 5);
+			
 			// Enables rotation handle
 			mxVertexHandler.prototype.rotationEnabled = true;
 
@@ -50,10 +53,10 @@
 
 			//Load initial xml or existing input
 			var loadGraphXML = "";
-			if (document.getElementById('graphXML').value == '\n' || document.getElementById('graphXML').value == '') {
-				loadGraphXML = document.getElementById('initialXML').value;
+			if (document.getElementById(qid + 'graphXML').value == '\n' || document.getElementById(qid + 'graphXML').value == '') {
+				loadGraphXML = document.getElementById(qid + 'initialXML').value;
 			} else {
-				loadGraphXML = document.getElementById('graphXML').value;
+				loadGraphXML = document.getElementById(qid + 'graphXML').value;
 			}
 			var loadXml = mxUtils.parseXml(loadGraphXML);
 			var nodeXml = loadXml.documentElement;
@@ -64,11 +67,11 @@
 				//Internet Explorer
 			}
 						
-			var textNode = document.getElementById('xml');
-			var saveNode  = document.getElementById('graphXML');
-			var initialNode = document.getElementById('initialXML');
+			var textNode = document.getElementById(qid + 'xml');
+			var saveNode  = document.getElementById(qid + 'graphXML');
+			var initialNode = document.getElementById(qid + 'initialXML');
 			var graphNode = editor.graph.container;
-			var graphHtmlNode = document.getElementById('graphHtml');
+			var graphHtmlNode = document.getElementById(qid + 'graphHtml');
 			
 			var funct = function(editor)
 			{
@@ -122,7 +125,7 @@
 					    var preview = new mxPrintPreview(editor.graph, 1, pageFormat);
 						preview.open('mxGraphSVG', window, false, false, "graphHtml");	
 						*/
-						graphHtmlNode.value = document.getElementById('graph').innerHTML;
+						graphHtmlNode.value = document.getElementById(qid + 'graph').innerHTML;
 					} else 
 					{
 						saveNode.value = "";
@@ -147,7 +150,7 @@
 			});
 		
 			// Create select actions in page
-			var node = document.getElementById('mainActions');
+			var node = document.getElementById(qid + 'mainActions');
 			//var buttons = ['group', 'ungroup', 'cut', 'copy', 'paste', 'delete', 'undo', 'redo', 'print', 'show'];
 			//less buttons
 			var buttons = ['group', 'ungroup', 'cut', 'copy', 'paste', 'delete', 'undo', 'redo'];
@@ -275,7 +278,7 @@
 			}
 
 			// Create select actions in page
-			var node = document.getElementById('selectActions');
+			var node = document.getElementById(qid + 'selectActions');
 			mxUtils.write(node, 'Select: ');
 			mxUtils.linkAction(node, 'All', editor, 'selectAll');
 			mxUtils.write(node, ', ');
@@ -286,7 +289,7 @@
 			mxUtils.linkAction(node, 'Edges', editor, 'selectEdges');
 
 			// Create select actions in page
-			var node = document.getElementById('zoomActions');
+			var node = document.getElementById(qid + 'zoomActions');
 			mxUtils.write(node, 'Zoom: ');
 			mxUtils.linkAction(node, 'In', editor, 'zoomIn');
 			mxUtils.write(node, ', ');
