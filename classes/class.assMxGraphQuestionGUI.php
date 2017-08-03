@@ -96,12 +96,11 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		// We only add an input field for the maximum points
 		// NOTE: in complex question types the maximum points are summed up by partial points
 		$points = new ilNumberInputGUI($lng->txt('maximum_points'),'points');
-		$points->setSize(3);
-		$points->setMinValue(1);
-		$points->allowDecimals(0);
-		$points->setRequired(true);
-		//TODO prevent loss of graph when input of points has been forgotten
-		$points->setValue($this->object->getPoints());
+		$points->allowDecimals(true);
+		$points->setValue( $this->object->getPoints() );
+		$points->setRequired( TRUE );
+		$points->setSize( 3 );
+		$points->setMinValue( 0.0 );
 		$form->addItem($points);
 
 		$this->populateTaxonomyFormSection($form);
@@ -163,7 +162,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 			$this->writeQuestionGenericPostData();
 
 			// Question type specific values
-			$this->object->setPoints((int) $_POST["points"]);
+			$this->object->setPoints($_POST["points"]);
 			$this->object->setInitialXml($_POST["initialXML"]);
 			$this->object->setGraphXml($_POST["graphXML"]);
 			$this->object->setOptions($_POST["options"]);
