@@ -100,6 +100,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$points->setMinValue(1);
 		$points->allowDecimals(0);
 		$points->setRequired(true);
+		//TODO prevent loss of graph when input of points has been forgotten
 		$points->setValue($this->object->getPoints());
 		$form->addItem($points);
 
@@ -122,9 +123,11 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$template->setVariable("QUESTIONTEXT", $this->object->prepareTextareaOutput($question, TRUE));
 		$template->setVariable("INITIAL_XML",ilUtil::prepareFormOutput($this->object->getInitialXml()));
 		$template->setVariable("GRAPH_XML",ilUtil::prepareFormOutput($this->object->getGraphXml()));
-		//$template->setVariable("OPTIONS", $options);
+		$template->setVariable("OPTIONS", ilUtil::prepareFormOutput($this->object->getOptions()));
 		$template->setVariable("GRAPH_HTML",ilUtil::prepareFormOutput($this->object->getGraphHtml()));
 		$template->setVariable("INITIAL_HTML",ilUtil::prepareFormOutput($this->object->getInitialHtml()));
+		
+		//TODO set lang variables
 		
 		$mxgoutput->setHtml($template->get());
 		$form->addItem($mxgoutput);	
@@ -159,11 +162,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		{
 			$this->writeQuestionGenericPostData();
 
-			// Here you can write the question type specific values
-			
-			//error_log("PostData: ".$_POST["graphXML"]);
-			
-			
+			// Question type specific values
 			$this->object->setPoints((int) $_POST["points"]);
 			$this->object->setInitialXml($_POST["initialXML"]);
 			$this->object->setGraphXml($_POST["graphXML"]);
@@ -195,7 +194,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		{
 			$pass = ilObjTest::_getPass($active_id);
 		}
-		$solutions = $this->object->getSolutionValues($active_id, $pass);
+		$solutions = $this->object->getTestOutputSolutions($active_id, $pass);
 
 		// there may be more tham one solution record
 		// the last saved wins
@@ -210,18 +209,12 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		}
 
 		// fill the question output template
-		// in out example we have 1:1 relation for the database field
 		$template = $this->plugin->getTemplate("tpl.il_as_qpl_mxgqst_output.html");
 
-		$template->setVariable("LABEL_VALUE1", $this->plugin->txt('label_value1'));
-		$template->setVariable("LABEL_VALUE2", $this->plugin->txt('label_value2'));
-		$template->setVariable("LABEL_POINTS", $this->plugin->txt('label_points'));
-
-		$template->setVariable("VALUE1", ilUtil::prepareFormOutput($value1));
-		$template->setVariable("VALUE2", ilUtil::prepareFormOutput($value2));
-		$template->setVariable("POINTS", ilUtil::prepareFormOutput($points));
-
 		$template = $this->getQuestionOutput($this->object->getQuestion(), $this->object->getId(), $this->object->getInitialXml(), $value1, "", $value2, "", "tpl.il_as_qpl_mxgqst_testoutput.html");
+		
+		//TODO set lang variables
+		$template->setVariable("LABEL_POINTS", $this->plugin->txt('label_points'));
 		
 		$questionoutput = $template->get();
 		$pageoutput = $this->outQuestionPage("", $is_postponed, $active_id, $questionoutput);
@@ -237,26 +230,17 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 	 */
 	public function getPreview($show_question_only = FALSE, $showInlineFeedback = FALSE)
 	{
-		$template = $this->plugin->getTemplate("tpl.il_as_qpl_mxgqst_output.html");
-		$template->setVariable("QUESTIONTEXT", $this->object->prepareTextareaOutput($questiontext, TRUE));
-
 		if( is_object($this->getPreviewSession()) )
 		{
 			$solution = $this->getPreviewSession()->getParticipantsSolution();
 		}
 
 		// Fill the template with a preview version of the question
-		$template = $this->plugin->getTemplate("tpl.il_as_qpl_mxgqst_output.html");
-		$template->setVariable("LABEL_VALUE1", $this->plugin->txt('label_value1'));
-		$template->setVariable("LABEL_VALUE2", $this->plugin->txt('label_value2'));
-		$template->setVariable("LABEL_POINTS", $this->plugin->txt('label_points'));
-
-		$template->setVariable("VALUE1", ilUtil::prepareFormOutput($solution['value1']));
-		$template->setVariable("VALUE2", ilUtil::prepareFormOutput($solution['value2']));
-		$template->setVariable("POINTS", ilUtil::prepareFormOutput($solution['points']));
-
 		$template = $this->getQuestionOutput($this->object->getQuestion(), $this->object->getId(), $this->object->getInitialXml(), "", "", "", "", "tpl.il_as_qpl_mxgqst_testoutput.html");		
 		
+		//TODO set lang  variables
+		$template->setVariable("LABEL_POINTS", $this->plugin->txt('label_points'));
+
 		$questionoutput = $template->get();
 		if(!$show_question_only)
 		{

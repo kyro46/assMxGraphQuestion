@@ -84,7 +84,6 @@ class assMxGraphQuestion extends assQuestion
 		}
 	}
 
-	
 	function setOptions($options){
 		$this->options = $options;
 	}
