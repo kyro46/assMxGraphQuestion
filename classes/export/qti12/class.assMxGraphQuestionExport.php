@@ -66,7 +66,7 @@ class assMxGraphQuestionExport extends assQuestionExport
 
 		$a_xml_writer->xmlStartTag("qtimetadatafield");
 		$a_xml_writer->xmlElement("fieldlabel", NULL, "initialxml");
-		$a_xml_writer->xmlElement("fieldentry", NULL,  base64_encode($this->object->getInitialXml));
+		$a_xml_writer->xmlElement("fieldentry", NULL,  base64_encode($this->object->getInitialXml()));
 		$a_xml_writer->xmlEndTag("qtimetadatafield");
 		
 		$a_xml_writer->xmlStartTag("qtimetadatafield");
