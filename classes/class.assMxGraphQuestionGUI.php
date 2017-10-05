@@ -208,7 +208,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		}
 
 		// fill the question output template
-		$template = $this->plugin->getTemplate("tpl.il_as_qpl_mxgqst_output.html");
+		$template = $this->plugin->getTemplate("tpl.il_as_qpl_mxgqst_testoutput.html");
 
 		$template = $this->getQuestionOutput($this->object->getQuestion(), $this->object->getId(), $this->object->getInitialXml(), $value1, "", $value2, "", "tpl.il_as_qpl_mxgqst_testoutput.html");
 		
