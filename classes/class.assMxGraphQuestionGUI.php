@@ -11,6 +11,7 @@ include_once "./Modules/Test/classes/inc.AssessmentConstants.php";
  * @ingroup ModulesTestQuestionPool
  *
  * @ilctrl_iscalledby assMxGraphQuestionGUI: ilObjQuestionPoolGUI, ilObjTestGUI, ilQuestionEditGUI, ilTestExpressPageObjectGUI
+ * @ilCtrl_Calls assMxGraphQuestionGUI: ilFormPropertyDispatchGUI
  */
 class assMxGraphQuestionGUI extends assQuestionGUI
 {
@@ -103,9 +104,6 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 		$points->setMinValue( 0.0 );
 		$form->addItem($points);
 
-		$this->populateTaxonomyFormSection($form);
-		$this->addQuestionFormCommandButtons($form);
-
 		// MxGraph-Applet
 		$plugin = $this->object->getPlugin();
 		include_once("./Services/Form/classes/class.ilCustomInputGUI.php");
@@ -141,6 +139,9 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 			if ($errors) $checkonly = false;
 		}
 
+		$this->populateTaxonomyFormSection($form);
+		$this->addQuestionFormCommandButtons($form);
+		
 		if (!$checkonly)
 		{
 			$this->tpl->setVariable("QUESTION_DATA", $form->getHTML());
