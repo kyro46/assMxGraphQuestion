@@ -1,0 +1,39 @@
+{QUESTIONTEXT}
+<input type="hidden" id="{QUESTION_ID}_initialXML" name="{QUESTION_ID}_initialXML" value="{INITIAL_XML}" />
+<input type="hidden" id="{QUESTION_ID}_graphXML" name="{QUESTION_ID}_graphXML" value="{GRAPH_XML}" />
+<input type="hidden" id="{QUESTION_ID}_options" name="{QUESTION_ID}_options" value="{OPTIONS}" />
+<input type="hidden" id="{QUESTION_ID}_graphHtml" name="{QUESTION_ID}_graphHtml" value="{GRAPH_HTML}" />
+	<div id="page">
+		<div id="{QUESTION_ID}_mainActions"
+			style="width:100%;padding-top:8px;padding-left:24px;padding-bottom:8px;">
+		</div>
+		<div id="{QUESTION_ID}_selectActions" style="width:100%;padding-left:54px;padding-bottom:4px;">
+		</div>
+		<table border="0" width="730px">
+			<tr>
+				<td id="{QUESTION_ID}_toolbar" style="width:16px;padding-left:20px;" valign="top">
+					<!-- Toolbar Here -->				
+				</td>
+				<td valign="top" style="border-width:1px;border-style:solid;border-color:black;">
+					<div id="{QUESTION_ID}_graph" tabindex="-1" style="position:relative;height:500px;width:700px;overflow:hidden;cursor:default;">
+						<center id="{QUESTION_ID}_splash" style="padding-top:230px;">
+							<img src="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/loading.gif">
+						</center>
+					</div>
+					<textarea id="{QUESTION_ID}_xml" style="height:480px;width:684px;display:none;border-style:none;"></textarea>
+				</td>
+			</tr>
+		</table>
+		<div id="{QUESTION_ID}_zoomActions" style="display:none; width:100%;padding-left:54px;padding-top:4px;">
+		</div>
+		<div id="{QUESTION_ID}_footer">
+			<p id="{QUESTION_ID}_status">
+				<!-- Status Here -- Loading... -->
+			</p>
+			<br/>
+		</div>
+	</div>
+<script type="text/javascript">
+createEditor('./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/config/diagrameditor.xml', '{QUESTION_ID}_');
+</script>
+<div id={QUESTION_ID}_graphdebug style="height:auto; width:auto;"></div>
