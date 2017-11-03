@@ -2,10 +2,6 @@
 <!-- language file start -->
 assMxGraphQuestion#:#MxGraph Frage
 editor#:#Editor
-inputType#:#Eingabeart umschalten
+inputType#:#Vorbelegung bearbeiten
 sampleSolution#:#Musterlösung
 initialInput#:#Vorbelegung
-label_value1#:#Value 1 stored for this answer (any text)
-label_value2#:#Value 2 stored for this answer (any text)
-label_points#:#Points entered for this answer (any number)
-any_text#:#any text or empty

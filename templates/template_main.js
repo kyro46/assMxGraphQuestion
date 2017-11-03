@@ -348,14 +348,14 @@
 
 			// Create select actions in page
 			var node = document.getElementById('selectActions');
-			mxUtils.write(node, 'Select: ');
-			mxUtils.linkAction(node, 'All', editor, 'selectAll');
+			mxUtils.write(node, mxResources.get('select_main'));
+			mxUtils.linkAction(node, mxResources.get('all'), editor, 'selectAll');
 			mxUtils.write(node, ', ');
-			mxUtils.linkAction(node, 'None', editor, 'selectNone');
+			mxUtils.linkAction(node, mxResources.get('none'), editor, 'selectNone');
 			mxUtils.write(node, ', ');
-			mxUtils.linkAction(node, 'Vertices', editor, 'selectVertices');
+			mxUtils.linkAction(node, mxResources.get('vertices'), editor, 'selectVertices');
 			mxUtils.write(node, ', ');
-			mxUtils.linkAction(node, 'Edges', editor, 'selectEdges');
+			mxUtils.linkAction(node, mxResources.get('edges'), editor, 'selectEdges');
 
 			// Create select actions in page
 			var node = document.getElementById('zoomActions');

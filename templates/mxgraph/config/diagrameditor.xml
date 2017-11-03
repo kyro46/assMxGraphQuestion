@@ -452,15 +452,15 @@
 			}
 		]]></add>
 -->		<br/><br/>	
-  		<add as="Funktion" template="funktion" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/funktion_small.png"/>
-  		<add as="Ereignis" template="ereignis" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/ereignis_small.png"/>
-  		<add as="Organisationseinheit" template="organisationseinheit" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/organisationseinheit_small.png"/>
-  		<add as="And" template="and" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/and_small.png"/>
-  		<add as="Oder" template="or" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/or_small.png"/>
-  		<add as="XOR" template="xor" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/xor_small.png"/>
-     	<add as="Dokument" template="dokument" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/dokument_small.png"/>
-  		<add as="Informationsobjekt" template="informationsobjekt" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/informationsobjekt_small.png"/>
-  		<add as="Wegweiser" template="wegweiser" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/wegweiser_small.png"/>
+  		<add as="function" template="funktion" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/funktion_small.png"/>
+  		<add as="event" template="ereignis" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/ereignis_small.png"/>
+  		<add as="orgunit" template="organisationseinheit" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/organisationseinheit_small.png"/>
+  		<add as="and" template="and" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/and_small.png"/>
+  		<add as="or" template="or" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/or_small.png"/>
+  		<add as="xor" template="xor" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/xor_small.png"/>
+     	<add as="document" template="dokument" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/dokument_small.png"/>
+  		<add as="information" template="informationsobjekt" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/informationsobjekt_small.png"/>
+  		<add as="processpath" template="wegweiser" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/custom/wegweiser_small.png"/>
 		<br/><br/>
 		<add as="Text" template="text" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/text.gif"/>
 <!--	<add as="Container" template="container" icon="./Customizing/global/plugins/Modules/TestQuestionPool/Questions/assMxGraphQuestion/templates/mxgraph/images/swimlane.gif"/>
