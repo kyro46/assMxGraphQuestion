@@ -536,7 +536,7 @@ class assMxGraphQuestion extends assQuestion
 	 */
 	public function getAdditionalTableName()
 	{
-		return "";
+		return "il_qpl_qst_mxgraph";
 	}
 
 	
