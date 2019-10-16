@@ -1,5 +1,7 @@
 # assMxGraphQuestion
-mxGraph-Questiontypeplugin for ILIAS 5.2.x
+mxGraph-Questiontypeplugin for ILIAS 5.4
+
+For ILIAS 5.2 to 5.3 see the [**Releases**](https://github.com/kyro46/assMxGraphQuestion/releases)
 
 ### Questiontype that allows the creation of EPC-diagrams via drag&drop editor ###
 

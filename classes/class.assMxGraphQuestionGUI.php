@@ -358,7 +358,7 @@ class assMxGraphQuestionGUI extends assQuestionGUI
 	 * @return string HTML Code with the answer specific feedback
 	 * @access public
 	 */
-	function getSpecificFeedbackOutput($active_id, $pass)
+	function getSpecificFeedbackOutput($usersolution)
 	{
 		// By default no answer specific feedback is defined
 		return $this->object->prepareTextareaOutput($output, TRUE);
